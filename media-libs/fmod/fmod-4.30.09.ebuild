@@ -12,8 +12,8 @@ SRC_URI="x86? ( http://www.fmod.org/index.php/release/version/${MY_P}.tar.gz )
 	amd64? ( http://www.fmod.org/index.php/release/version/${MY_P}64.tar.gz )"
 
 LICENSE="fmod"
-SLOT="1"
-KEYWORDS="amd64 x86"
+SLOT="4"
+KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 RDEPEND=""

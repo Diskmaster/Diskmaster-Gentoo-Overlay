@@ -13,7 +13,7 @@ SRC_URI="x86? ( http://www.fmod.org/index.php/release/version/${MY_P}.tar.gz )
 
 LICENSE="fmod"
 SLOT="1"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="examples"
 
 RDEPEND=""
@@ -58,6 +58,6 @@ src_install() {
 	dodoc "${fsource}"/{documentation/*.txt,fmoddesignerapi/*.TXT}
 	rm -rf "${D}"/opt/fmodex/{documentation,fmoddesignerapi/*.TXT}
 
-	echo LDPATH="/opt/fmodex/fmoddesignerapi/api/lib:/opt/fmodex/api/lib" > "${T}"/65fmodex
+	echo LDPATH="/opt/fmodex/api/lib" > "${T}"/65fmodex
 	doenvd "${T}"/65fmodex
 }
