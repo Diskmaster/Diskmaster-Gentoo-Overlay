@@ -8,13 +8,18 @@ MY_P=fmodapi$(delete_all_version_separators)linux
 
 DESCRIPTION="music and sound effects library, and a sound processing system"
 HOMEPAGE="http://www.fmod.org"
-SRC_URI="x86? ( http://www.fmod.org/index.php/release/version/${MY_P}.tar.gz )
-	amd64? ( http://www.fmod.org/index.php/release/version/${MY_P}64.tar.gz )"
+X86_URI="http://www.fmod.org/index.php/release/version/${MY_P}.tar.gz"
+SRC_URI="
+	x86? ( ${X86_URI} )
+	amd64? (
+		http://www.fmod.org/index.php/release/version/${MY_P}64.tar.gz
+		multilib? ( ${X86_URI} )
+	)"
 
 LICENSE="fmod"
-SLOT="3"
-KEYWORDS="~amd64 ~x86"
-IUSE="examples"
+SLOT="1"
+KEYWORDS="amd64 x86"
+IUSE="examples multilib"
 
 RDEPEND=""
 DEPEND=""
@@ -25,14 +30,13 @@ QA_TEXTRELS="opt/fmodex/fmoddesignerapi/api/lib/*
 opt/fmodex/api/lib/*
 opt/fmodex/api/plugins/*"
 
-src_compile() { :; }
-src_install() {
-	dodir /opt/fmodex
+do_install() {
+	local fdest="/opt/fmodex${1:+-$1}"
+	dodir "${fdest}"
 
-	local fbits=""
-	use amd64 && fbits="64"
-
-	local fsource="${WORKDIR}/${MY_P}${fbits}"
+	local fbits
+	[[ "$1" == "64" ]] && fbits="64"
+	fsource="${WORKDIR}/${MY_P}${fbits}"
 
 	cd "${fsource}"/api/lib
 
@@ -47,17 +51,37 @@ src_install() {
 	ln -sf libfmodexL.so.${PV} libfmodexL.so || die
 	ln -sf libfmodexL.so.${PV} libfmodexL.so.4 || die
 
-	cp -dpR "${fsource}"/* "${D}"/opt/fmodex || die
+	cp -dpR "${fsource}"/* "${D}"/"${fdest}" || die
 
+	ldpath+=( "${fdest}/api/lib" )
+
+	use examples || rm -rf "${D}"/"${fdest}"/{,fmoddesignerapi}/examples
+}
+
+src_install() {
+	local fsource ldpath
+	declare -a ldpath
+	if use x86; then
+		do_install
+	elif use amd64; then
+		use multilib && do_install 32
+		rm -rf "${D}"/"${fdest}"/{documentation,fmoddesignerapi/*.TXT}
+		do_install 64
+		dosym /opt/fmodex-64 /opt/fmodex
+	else
+		die
+	fi
+	local oldIFS="$IFS" IFS=":"
+	echo "LDPATH=\"${ldpath[*]}\"" >> "${T}"/65fmodex
+	IFS="$oldIFS"
+
+	dodir /usr/include
 	dosym /opt/fmodex/api/inc /usr/include/fmodex || die
-
-	use examples || rm -rf "${D}"/opt/fmodex/{,fmoddesignerapi}/examples
 
 	insinto /usr/share/doc/${PF}/pdf
 	doins "${fsource}"/documentation/*.pdf
 	dodoc "${fsource}"/{documentation/*.txt,fmoddesignerapi/*.TXT}
-	rm -rf "${D}"/opt/fmodex/{documentation,fmoddesignerapi/*.TXT}
+	rm -rf "${D}"/"${fdest}"/{documentation,fmoddesignerapi/*.TXT}
 
-	echo LDPATH="/opt/fmodex/api/lib" > "${T}"/65fmodex
 	doenvd "${T}"/65fmodex
 }
