@@ -1,6 +1,6 @@
-# Copyright 1999-2007 Gentoo Foundation
+# Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
-# $Header: /var/cvsroot/gentoo-x86/sys-libs/glibc/files/eblits/common.eblit,v 1.11 2010/06/16 01:43:37 zorry Exp $
+# $Header: /var/cvsroot/gentoo-x86/sys-libs/glibc/files/eblits/common.eblit,v 1.12 2010/09/30 06:29:21 vapier Exp $
 
 # We need to be able to set alternative headers for
 # compiling for non-native platform
@@ -68,12 +68,14 @@ setup_flags() {
 		[[ -z ${CTARGET_OPT} ]] && CTARGET_OPT=$(get_abi_CHOST)
 	fi
 
-	einfo "$(tc-arch)"
 	case $(tc-arch) in
 		x86)
+			# This is a hack to workaround a bug with the -march checking code. It tries to test -march=x86_64 which is wrong, which forces the x86 -march settings to a sensible default which is fine and dandy for most people, but x86_64 is pulled from the chost variable and thus technically valid. Just not in the list of arches. So regardless of what -march is selected for 32-bit land, the defaults are imposed due to someone not forseeing this specific problem. Enabling the hack requires GLIBC_FORCE_CFLAGS = 1 in /etc/make.conf
+			# TODO: Add wrapper for debug lines (the cflags display)
 			if [[ ${GLIBC_FORCE_CFLAGS} == "1" ]] ; then
-			ewarn "Forcing CFLAGS for glibc. Hope you know what you are doing."
+				einfo "Enabling Disk's hack for forcing cflags for x86_32. Hope you know what you are doing."
 			else
+				einfo "Allowing cflags check for x86_32"
 				# -march needed for #185404
 				local t=${CTARGET_OPT:-${CTARGET}}
 				t=${t%%-*}
@@ -82,24 +84,25 @@ setup_flags() {
 					export CFLAGS="-march=${t} ${CFLAGS}"
 				fi
 			fi
-			ewarn "Debug (x86) - ${CFLAGS}"
+			ewarn "Debug ${tc-arch} - ${CFLAGS}"
 		;;
 		amd64)
 			if [[ ${GLIBC_FORCE_CFLAGS} == "1" ]] ; then
-			ewarn "Forcing CFLAGS for glibc. Hope you know what you are doing."
+				einfo "Enabling Disk's hack for forcing cflags for x86_64. Hope you know what you are doing."
 			else
+				einfo "Allowing cflags check for x86_64"
 				# Punt this when amd64's 2004.3 is removed
 				CFLAGS_x86="-m32"
-	
+
 				# -march needed for #185404
 				local t=${CTARGET_OPT:-${CTARGET}}
 				t=${t%%-*}
 				if ! echo "" | $(tc-getCC) ${CFLAGS} ${CFLAGS_x86} -m32 -E -dD - | grep -qs __${t}__ ; then
 					filter-flags '-march=*'
-					export CFLAGS_x86="-march=${t} ${CFLAGS_x86}"
+					export CFLAGS_x86="${CFLAGS_x86} -march=${t}"
 				fi
 			fi
-			ewarn "Debug (x86_64/amd64) - ${CFLAGS} ${CFLAGS_x86}"
+			ewarn "Debug ${tc-arch} - ${CFLAGS} - ${CFLAGS_x86}"
 		;;
 		ppc)
 			append-flags "-freorder-blocks"
@@ -262,6 +265,17 @@ use_multilib() {
 	esac
 }
 
+use_multiarch() {
+	# Make sure binutils is new enough to support indirect functions #336792
+	local bver=$($(tc-getLD ${CTARGET}) -v | awk '{print $NF}') nver
+	case $(tc-arch ${CTARGET}) in
+		amd64|x86) nver="2.20" ;;
+		sparc)     nver="2.21" ;;
+		*)         return 1 ;;
+	esac
+	version_is_at_least ${nver} ${bver}
+}
+
 # Setup toolchain variables that would be defined in the profiles for these archs.
 setup_env() {
 	# silly users
@@ -281,7 +295,7 @@ setup_env() {
 		CFLAGS=${!VAR-${CFLAGS}}
 	fi
 
-	#setup_flags
+	setup_flags
 
 	export ABI=${ABI:-${DEFAULT_ABI:-default}}
 
