@@ -1,0 +1,22 @@
+From 0273dfa52c2a52130475842e412ef7001ce3c67b Mon Sep 17 00:00:00 2001
+From: Øyvind Kolås <pippin@gimp.org>
+Date: Wed, 27 Oct 2010 22:12:19 +0000
+Subject: buffer: include gegl-buffer-iterator.h from gegl-buffer.h
+
+GeglBufferIterator should be available also when only including gegl.h
+---
+diff --git a/gegl/buffer/gegl-buffer.h b/gegl/buffer/gegl-buffer.h
+index 76a82a0..bee1c98 100644
+--- a/gegl/buffer/gegl-buffer.h
++++ b/gegl/buffer/gegl-buffer.h
+@@ -434,6 +434,8 @@ void            gegl_buffer_linear_close     (GeglBuffer    *buffer,
+  */
+ const GeglRectangle* gegl_buffer_get_abyss  (GeglBuffer           *buffer);
+ 
++#include <gegl-buffer-iterator.h>
++
+ /**
+  */
+ G_END_DECLS
+--
+cgit v0.8.3.1
