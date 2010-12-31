@@ -18,13 +18,13 @@ SRC_URI="
 
 LICENSE="fmod"
 SLOT="1"
-KEYWORDS="amd64 x86"
+KEYWORDS="~amd64 ~x86"
 IUSE="examples multilib"
 
 RDEPEND=""
 DEPEND=""
 
-RESTRICT="strip test"
+RESTRICT="strip test mirror"
 
 QA_TEXTRELS="opt/fmodex/fmoddesignerapi/api/lib/*
 opt/fmodex/api/lib/*
