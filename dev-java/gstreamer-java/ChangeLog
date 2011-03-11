@@ -1,0 +1,13 @@
+# ChangeLog for dev-java/gstreamer-java
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+
+*gstreamer-java-1.4 (6 Sep 2010)
+
+  6 Sep 2010; PhobosK <phobosk@kbfx.net> +gstreamer-java-1.4.ebuild:
+  Version bump.
+
+*gstreamer-java-1.3 (8 May 2010)
+
+  8 May 2010; PhobosK <phobosk@kbfx.net> +gstreamer-java-1.3.ebuild:
+  Initial ebuild.
+  see http://code.google.com/p/gstreamer-java/ for details

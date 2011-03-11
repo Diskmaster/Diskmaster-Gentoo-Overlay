@@ -1,0 +1,19 @@
+# ChangeLog for media-video/webcamstudio
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+
+*webcamstudio-0.56 (6 Sep 2010)
+
+  4 Nov 2010; PhobosK <phobosk@kbfx.net> +webcamstudio-0.56-r1.ebuild:
+  Version bump with separated main program and kernel module ebuilds.
+
+  6 Sep 2010; PhobosK <phobosk@kbfx.net> +webcamstudio-0.56.ebuild:
+  Version bump with some gstreamer ebuild dependencies fixed.
+
+  5 Sep 2010; PhobosK <phobosk@kbfx.net> +webcamstudio-0.54-r1.ebuild:
+  Some gstreamer ebuild dependencies fixed.
+
+*webcamstudio-0.54 (8 May 2010)
+
+  8 May 2010; PhobosK <phobosk@kbfx.net> +webcamstudio-0.54.ebuild:
+  Initial ebuild.
+  see http://www.ws4gl.org/ for details

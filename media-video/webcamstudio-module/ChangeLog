@@ -1,0 +1,8 @@
+# ChangeLog for media-video/webcamstudio
+# Copyright 1999-2006 Gentoo Foundation; Distributed under the GPL v2
+
+*webcamstudio-module-1.4 (4 Nov 2010)
+
+  4 Nov 2010; PhobosK <phobosk@kbfx.net> +webcamstudio-module-1.4.ebuild:
+  Initial ebuild.
+  see http://www.ws4gl.org/ for details
