@@ -27,7 +27,7 @@ DEPEND=">=media-libs/babl-0.1.0
 		app-text/enscript
 		media-gfx/graphviz
 		media-gfx/imagemagick )
-	ffmpeg? ( >=media-video/ffmpeg-0.4.9_p20080326 )
+	ffmpeg? ( virtual/ffmpeg )
 	jpeg? ( media-libs/jpeg )
 	openexr? ( media-libs/openexr )
 	raw? ( >=media-libs/libopenraw-0.0.5 )
