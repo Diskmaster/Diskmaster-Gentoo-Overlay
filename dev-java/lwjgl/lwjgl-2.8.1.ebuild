@@ -15,7 +15,7 @@ HOMEPAGE="http://www.lwjgl.org"
 SRC_URI="mirror://sourceforge/java-game-lib/${PN}-source-${PV}.zip"
 LICENSE="BSD"
 SLOT="2.8"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 CDEPEND="dev-java/apple-java-extensions-bin
