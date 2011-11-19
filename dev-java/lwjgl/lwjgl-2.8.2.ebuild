@@ -43,7 +43,7 @@ S="${WORKDIR}"
 JAVA_PKG_BSFIX_NAME="build.xml build-generator.xml"
 JAVA_ANT_REWRITE_CLASSPATH="true"
 
-EANT_GENTOO_CLASSPATH="apple-java-extensions-bin apt-mirror jinput jutils asm-3"
+EANT_GENTOO_CLASSPATH="apple-java-extensions-bin apt-mirror jinput jutils asm-4"
 EANT_BUILD_TARGET="jars headers"
 
 src_prepare() {
