@@ -1,0 +1,11 @@
+diff -ur lwjgl-def.orig/build.xml lwjgl-def/build.xml
+--- lwjgl-def.orig/build.xml	2011-12-06 23:41:08.000000000 -0600
++++ lwjgl-def/build.xml	2012-01-26 11:25:00.932984218 -0600
+@@ -7,7 +7,6 @@
+ 	<import file="platform_build/build-applet.xml"/>
+ 	<import file="platform_build/build-webstart.xml"/>
+ 	<import file="platform_build/build-maven.xml"/>
+-	<import file="eclipse-update/org.lwjgl.build/build-updatesite.xml"/>
+ 
+ 	<!-- ================================================================== -->
+ 	<!-- Everything below this line is targets.								-->
