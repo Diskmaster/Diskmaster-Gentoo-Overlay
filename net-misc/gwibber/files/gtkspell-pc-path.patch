@@ -1,0 +1,92 @@
+diff -u2pr gwibber-3.3.3.orig/configure gwibber-3.3.3/configure
+--- gwibber-3.3.3.orig/configure	2012-01-30 09:12:17.000000000 -0600
++++ gwibber-3.3.3/configure	2012-02-05 02:54:43.345236933 -0600
+@@ -5637,5 +5637,5 @@ linux* | k*bsd*-gnu | kopensolaris*-gnu)
+   ;;
+ 
+-netbsd* | netbsdelf*-gnu)
++netbsd*)
+   if echo __ELF__ | $CC -E - | $GREP __ELF__ > /dev/null; then
+     lt_cv_deplibs_check_method='match_pattern /lib[^/]+(\.so\.[0-9]+\.[0-9]+|_pic\.a)$'
+@@ -8787,7 +8787,4 @@ $as_echo_n "checking whether the $compil
+     with_gnu_ld=no
+     ;;
+-  linux* | k*bsd*-gnu | gnu*)
+-    link_all_deplibs=no
+-    ;;
+   esac
+ 
+@@ -9011,5 +9008,5 @@ _LT_EOF
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    netbsd*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable $libobjs $deplibs $linker_flags -o $lib'
+@@ -9188,5 +9185,4 @@ _LT_EOF
+ 	  shared_flag="$shared_flag "'${wl}-G'
+ 	fi
+-	link_all_deplibs=no
+       else
+ 	# not using gcc
+@@ -9642,5 +9638,5 @@ $as_echo "$lt_cv_irix_exported_symbol" >
+       ;;
+ 
+-    netbsd* | netbsdelf*-gnu)
++    netbsd*)
+       if echo __ELF__ | $CC -E - | $GREP __ELF__ >/dev/null; then
+ 	archive_cmds='$LD -Bshareable -o $lib $libobjs $deplibs $linker_flags'  # a.out
+@@ -10446,5 +10442,11 @@ freebsd* | dragonfly*)
+     esac
+   fi
+-  version_type=freebsd-$objformat
++  # Handle Gentoo/FreeBSD as it was Linux
++  case $host_vendor in
++    gentoo)
++      version_type=linux ;;
++    *)
++      version_type=freebsd-$objformat ;;
++  esac
+   case $version_type in
+     freebsd-elf*)
+@@ -10457,4 +10459,10 @@ freebsd* | dragonfly*)
+       need_version=yes
+       ;;
++    linux)
++      library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
++      soname_spec='${libname}${release}${shared_ext}$major'
++      need_lib_prefix=no
++      need_version=no
++      ;;
+   esac
+   shlibpath_var=LD_LIBRARY_PATH
+@@ -10486,5 +10494,4 @@ gnu*)
+   soname_spec='${libname}${release}${shared_ext}$major'
+   shlibpath_var=LD_LIBRARY_PATH
+-  shlibpath_overrides_runpath=no
+   hardcode_into_libs=yes
+   ;;
+@@ -10670,16 +10677,4 @@ fi
+   ;;
+ 
+-netbsdelf*-gnu)
+-  version_type=linux
+-  need_lib_prefix=no
+-  need_version=no
+-  library_names_spec='${libname}${release}${shared_ext}$versuffix ${libname}${release}${shared_ext}$major ${libname}${shared_ext}'
+-  soname_spec='${libname}${release}${shared_ext}$major'
+-  shlibpath_var=LD_LIBRARY_PATH
+-  shlibpath_overrides_runpath=no
+-  hardcode_into_libs=yes
+-  dynamic_linker='NetBSD ld.elf_so'
+-  ;;
+-
+ netbsd*)
+   version_type=sunos
+@@ -15088,5 +15083,5 @@ fi
+ 
+ 
+-with_unity="yes"
++with_unity="no"
+ # Check whether --enable-unity was given.
+ if test "${enable_unity+set}" = set; then :
