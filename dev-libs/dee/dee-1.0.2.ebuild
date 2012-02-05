@@ -9,7 +9,7 @@ HOMEPAGE="https://launchpad.net/dee"
 SRC_URI="http://launchpad.net/${PN}/1.0/${PV}/+download/${P}.tar.gz"
 LICENSE="LGPL-3"
 SLOT="0"
-KEYWORDS="~x86 ~amd64"
+KEYWORDS=""
 IUSE=""
 
 DEPEND="dev-util/gtk-doc

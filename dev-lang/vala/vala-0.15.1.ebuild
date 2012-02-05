@@ -13,7 +13,7 @@ HOMEPAGE="http://live.gnome.org/Vala"
 
 LICENSE="LGPL-2.1"
 SLOT="0.16"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86 ~x86-fbsd ~x86-linux"
+KEYWORDS=""
 IUSE="test +vapigen"
 
 RDEPEND=">=dev-libs/glib-2.16:2"

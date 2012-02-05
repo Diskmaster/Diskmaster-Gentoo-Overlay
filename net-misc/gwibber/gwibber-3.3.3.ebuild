@@ -13,7 +13,7 @@ HOMEPAGE="https://launchpad.net/gwibber"
 SRC_URI="http://launchpad.net/${PN}/3.4/${PV}/+download/${P}.tar.gz"
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="
