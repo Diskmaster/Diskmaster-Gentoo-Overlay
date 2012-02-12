@@ -29,7 +29,7 @@ SRC_URI="${BASE_URI}eclipse-${BUILD_VER}-src.tar.bz2
 LICENSE="EPL-1.0"
 RESTRICT="mirror"
 SLOT="3.7"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE="doc gnome source"
 
 # ant dependencies should really be >=1.8.2
@@ -86,9 +86,9 @@ DEPEND="${CDEPEND}
 OSGI_DEPENDENCIES=(
 	'com.ibm.icu - icu4j-4.4'
 	'com.jcraft.jsch - jsch'
-	'javax.servlet - tomcat-servlet-api-3.0 servlet-api'
+	'javax.servlet - tomcat-servlet-api-2.5 servlet-api'
 #	'javax.servlet tomcat6-servlet-2.5-api tomcat-servlet-api-2.5 servlet-api'
-	'javax.servlet.jsp - tomcat-servlet-api-3.0 jsp-api'
+	'javax.servlet.jsp - tomcat-servlet-api-2.5 jsp-api'
 #	'javax.servlet.jsp tomcat6-jsp-2.1-api tomcat-servlet-api-2.5 jsp-api'
 	'org.apache.commons.codec commons-codec commons-codec'
 	'org.apache.commons.el apache-commons-el-1.0 commons-el'
