@@ -1,9 +1,8 @@
-# Copyright 1999-2010 Gentoo Foundation
+# Copyright 1999-2012 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 # $Header$
 
-EAPI="2"
-WANT_ANT_TASKS="ant-nodeps"
+EAPI="4"
 
 # eclipse-build is too complicated for automatic fixing
 # if there are any fixes we should create patches
@@ -31,9 +30,10 @@ SLOT="3.7"
 KEYWORDS="~amd64 ~x86"
 IUSE="doc gnome source"
 
-# ant dependencies should really be >=1.8.2
-CDEPEND=">=dev-java/swt-${PV%.0}_rc4:${SLOT}
-	>=dev-java/ant-1.8.1
+ANT="1.8.2"
+
+CDEPEND="dev-java/swt:${SLOT}
+	>=dev-java/ant-${ANT}
 	>=dev-java/asm-3.3.1:3
 	>=dev-java/commons-codec-1.3
 	>=dev-java/commons-el-1.0
@@ -50,37 +50,36 @@ CDEPEND=">=dev-java/swt-${PV%.0}_rc4:${SLOT}
 	>=dev-java/sat4j-pseudo-2.3.0:2.3
 	dev-java/tomcat-servlet-api:2.5
 	>=www-servers/tomcat-7:7
-	www-servers/jetty:6
+	java-virtuals/jetty-server:6
 	x86? ( gnome? ( gnome-base/gconf ) )"
-	# java-virtuals/jetty-server:6
 RDEPEND="${CDEPEND}
-	>=virtual/jre-1.5"
-# ant dependencies should really be >=1.8.2
+	>=virtual/jre-1.5
+	media-libs/libpng:1.2"
+
 DEPEND="${CDEPEND}
 	app-arch/unzip
 	app-arch/xz-utils
 	app-arch/zip
-	>=dev-java/ant-antlr-1.8.1
-	>=dev-java/ant-apache-bcel-1.8.1
-	>=dev-java/ant-apache-bsf-1.8.1
-	>=dev-java/ant-apache-log4j-1.8.1
-	>=dev-java/ant-apache-oro-1.8.1
-	>=dev-java/ant-apache-regexp-1.8.1
-	>=dev-java/ant-apache-resolver-1.8.1
-	>=dev-java/ant-apache-xalan2-1.8.1
-	>=dev-java/ant-commons-logging-1.8.1
-	>=dev-java/ant-commons-net-1.8.1
-	>=dev-java/ant-core-1.8.1
-	>=dev-java/ant-javamail-1.8.1
-	>=dev-java/ant-jdepend-1.8.1
-	>=dev-java/ant-jmf-1.8.1
-	>=dev-java/ant-jsch-1.8.1
-	>=dev-java/ant-junit-1.8.1
-	>=dev-java/ant-junit4-1.8.1
-	>=dev-java/ant-swing-1.8.1
-	>=dev-java/ant-testutil-1.8.1
+	>=dev-java/ant-antlr-${ANT}
+	>=dev-java/ant-apache-bcel-${ANT}
+	>=dev-java/ant-apache-bsf-${ANT}
+	>=dev-java/ant-apache-log4j-${ANT}
+	>=dev-java/ant-apache-oro-${ANT}
+	>=dev-java/ant-apache-regexp-${ANT}
+	>=dev-java/ant-apache-resolver-${ANT}
+	>=dev-java/ant-apache-xalan2-${ANT}
+	>=dev-java/ant-commons-logging-${ANT}
+	>=dev-java/ant-commons-net-${ANT}
+	>=dev-java/ant-core-${ANT}
+	>=dev-java/ant-javamail-${ANT}
+	>=dev-java/ant-jdepend-${ANT}
+	>=dev-java/ant-jmf-${ANT}
+	>=dev-java/ant-jsch-${ANT}
+	>=dev-java/ant-junit-${ANT}
+	>=dev-java/ant-junit4-${ANT}
+	>=dev-java/ant-swing-${ANT}
+	>=dev-java/ant-testutil-${ANT}
 	>=virtual/jdk-1.6"
-#	>=dev-java/ant-launcher-1.8.1
 
 OSGI_DEPENDENCIES=(
 	'com.ibm.icu - icu4j-4.4'
@@ -141,7 +140,7 @@ ALL_WS='carbon cocoa gtk motif photon win32 wpf'
 ALL_ARCH='alpha arm ia64 mips mipsel PA_RISC ppc ppc64 s390 s390x sparc sparc64 x86 x86_64'
 
 pkg_pretend() {
-	CHECKREQS_MEMORY="1536M"
+	CHECKREQS_MEMORY="1280M"
 	if use doc ; then
 		CHECKREQS_DISK_BUILD="3072M"
 	else
@@ -153,7 +152,7 @@ pkg_pretend() {
 buildDir="${S}/build/eclipse-${BUILD_VER}-src"
 
 pkg_setup() {
-	CHECKREQS_MEMORY="1536M"
+	CHECKREQS_MEMORY="1280M"
 	if use doc ; then
 		CHECKREQS_DISK_BUILD="3072M"
 	else
