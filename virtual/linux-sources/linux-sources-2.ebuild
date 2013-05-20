@@ -10,7 +10,7 @@ SRC_URI=""
 
 LICENSE=""
 SLOT="0"
-KEYWORDS="~amd64 ~arm ~hppa ~ia64 ~x86"
+KEYWORDS=""
 IUSE="firmware"
 
 DEPEND="firmware? ( sys-kernel/linux-firmware )"
@@ -33,3 +33,8 @@ RDEPEND=""
 #		sys-kernel/zen-sources
 #		sys-kernel/aufs-sources
 #	)"
+ pkg_postinst() {
+	ewarn "BE CAREFUL WHAT YOU ARE DOING. THIS VERSION OF THE VIRTUAL SPECIFICALLY REMOVES PORTAGE'S NEED"
+	ewarn "TO INSTALL ANY SORT OF KERNEL SOURCES. IF YOU HAVE DONE THIS WITHOUT ANY THOUGHT TO WHAT"
+	ewarn "THIS COULD DO TO YOUR SYSTEM, PLEASE DOWNGRADE TO AN EARLIER VERSION OF THE VIRTUAL."
+}
